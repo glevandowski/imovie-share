@@ -1,10 +1,12 @@
-package com.levandowski.imovieshare
+package com.levandowski.imovieshare.movies
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.levandowski.imovieshare.R
+import com.levandowski.imovieshare.model.Movie
 
 class MovieAdapter(
     private val movies: List<Movie>,

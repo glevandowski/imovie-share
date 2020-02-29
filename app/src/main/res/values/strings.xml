@@ -2,4 +2,6 @@
     <string name="app_name">IMovieShare</string>
     <string name="tv_title_movie">no value</string>
     <string name="description_movie_iv">image of movie</string>
+    <string name="movies_fragment_label">Movies</string>
+    <string name="about_movie_label">About</string>
 </resources>

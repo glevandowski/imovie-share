@@ -1,4 +1,4 @@
-package com.levandowski.imovieshare
+package com.levandowski.imovieshare.model
 
 data class Movie(
     val popularity: Double? = null,

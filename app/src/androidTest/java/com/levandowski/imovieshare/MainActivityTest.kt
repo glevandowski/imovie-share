@@ -9,6 +9,7 @@ import org.junit.runner.RunWith
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.levandowski.imovieshare.movies.MovieAdapter
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityEspressoTest {

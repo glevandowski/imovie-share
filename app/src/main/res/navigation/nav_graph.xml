@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    android:label="@string/movies_fragment_label"
+    app:startDestination="@id/moviesFragment">
+
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.levandowski.imovieshare.movies.MoviesFragment"
+        android:label="movies_fragment"
+        tools:layout="@layout/movies_fragment">
+        <action
+            android:id="@+id/action_moviesFragment_to_aboutMovieFragment"
+            app:destination="@id/aboutMovieFragment"
+            app:launchSingleTop="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/aboutMovieFragment"
+        android:name="com.levandowski.imovieshare.about.AboutMovieFragment"
+        android:label="@string/about_movie_label"
+        tools:layout="@layout/about_movie_fragment">
+        <argument
+            android:name="titleMovie"
+            android:defaultValue="nothing"
+            app:argType="string" />
+    </fragment>
+</navigation>
