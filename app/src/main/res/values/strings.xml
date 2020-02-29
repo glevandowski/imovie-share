@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">IMovieShare</string>
+    <string name="tv_title_movie">no value</string>
+    <string name="description_movie_iv">image of movie</string>
 </resources>
