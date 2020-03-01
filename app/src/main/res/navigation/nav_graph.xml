@@ -14,7 +14,9 @@
         <action
             android:id="@+id/action_moviesFragment_to_aboutMovieFragment"
             app:destination="@id/aboutMovieFragment"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 
     <fragment
@@ -23,7 +25,7 @@
         android:label="@string/about_movie_label"
         tools:layout="@layout/about_movie_fragment">
         <argument
-            android:name="titleMovie"
+            android:name="movie"
             android:defaultValue="nothing"
             app:argType="string" />
     </fragment>

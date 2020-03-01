@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/about_movie_title_tv"
+        android:id="@+id/tv_about_movie_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,22 +30,23 @@
         android:textColor="@color/color_accent"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/appCompatRatingBar"
+        app:layout_constraintEnd_toStartOf="@+id/rb_vote_average_about_movie"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <androidx.appcompat.widget.AppCompatRatingBar
-        android:id="@+id/appCompatRatingBar"
+        android:id="@+id/rb_vote_average_about_movie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="false"
         android:isIndicator="true"
         android:numStars="5"
         android:rating="3"
+        style="?android:attr/ratingBarStyleSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/about_movie_title_tv" />
+        app:layout_constraintTop_toTopOf="@+id/tv_about_movie_title" />
 
     <TextView
         android:id="@+id/textView2"
@@ -55,10 +56,11 @@
         android:textColor="@color/color_accent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/about_movie_title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatRatingBar" />
+        app:layout_constraintStart_toStartOf="@+id/tv_about_movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/rb_vote_average_about_movie" />
 
     <TextView
+        android:id="@+id/tv_overview_about_movie"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text=""
