@@ -4,11 +4,11 @@ import androidx.fragment.app.testing.FragmentScenario
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.levandowski.imovieshare.movies.MoviesFragment
+import com.levandowski.imovieshare.ui.movies.MoviesFragment
 import com.google.gson.Gson
 import com.levandowski.imovieshare.model.Movie
-import com.levandowski.imovieshare.movies.MoviesFragmentDirections
-import com.levandowski.imovieshare.utils.RecyclerViewMatcher
+import com.levandowski.imovieshare.ui.movies.MoviesFragmentDirections
+import com.levandowski.imovieshare.util.RecyclerViewMatcher
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Before
@@ -38,7 +38,7 @@ class MoviesFragmentTest {
 
     @Test
     fun movieDescriptionWasCalled() {
-        RecyclerViewMatcher.clickOnPosition(R.id.recycler_view, 0)
+        RecyclerViewMatcher.clickOnPosition(R.id.rv_movies, 0)
         val action = MoviesFragmentDirections.actionMoviesFragmentToAboutMovieFragment().apply {
             movie = Gson().toJson(
                 Movie(
@@ -53,9 +53,9 @@ class MoviesFragmentTest {
 
     @Test
     fun checkItemWhenScroll() {
-        RecyclerViewMatcher.scrollToPosition(R.id.recycler_view, 9)
-        RecyclerViewMatcher.hasViewInPosition(R.id.recycler_view, 9)
-        RecyclerViewMatcher.scrollToPosition(R.id.recycler_view, 2)
-        RecyclerViewMatcher.hasViewInPosition(R.id.recycler_view, 2)
+        RecyclerViewMatcher.scrollToPosition(R.id.rv_movies, 9)
+        RecyclerViewMatcher.hasViewInPosition(R.id.rv_movies, 9)
+        RecyclerViewMatcher.scrollToPosition(R.id.rv_movies, 2)
+        RecyclerViewMatcher.hasViewInPosition(R.id.rv_movies, 2)
     }
 }

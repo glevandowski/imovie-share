@@ -1,4 +1,4 @@
-package com.levandowski.imovieshare.utils
+package com.levandowski.imovieshare.util
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

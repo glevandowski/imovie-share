@@ -8,14 +8,14 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.gson.Gson
-import com.levandowski.imovieshare.about.AboutMovieFragment
+import com.levandowski.imovieshare.ui.about.AboutMovieFragment
 import com.levandowski.imovieshare.model.Movie
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class AboutMovieFragmentTest {
+class AboutMoviesFragmentTest {
 
     companion object {
         private const val MOVIE_BUNDLE_REF = "movie"
