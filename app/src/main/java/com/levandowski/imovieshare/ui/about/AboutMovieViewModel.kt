@@ -1,4 +1,4 @@
-package com.levandowski.imovieshare.about
+package com.levandowski.imovieshare.ui.about
 
 import androidx.lifecycle.ViewModel
 
