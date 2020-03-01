@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusable="true"
     android:background="@color/color_dark"
-    tools:context=".about.AboutMovieFragment">
+    tools:context="ui.about.AboutMovieFragment">
 
     <ImageView
         android:id="@+id/imageView"

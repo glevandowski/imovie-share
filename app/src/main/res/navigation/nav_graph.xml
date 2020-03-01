@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.levandowski.imovieshare.movies.MoviesFragment"
+        android:name="com.levandowski.imovieshare.ui.movies.MoviesFragment"
         android:label="movies_fragment"
         tools:layout="@layout/movies_fragment">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/aboutMovieFragment"
-        android:name="com.levandowski.imovieshare.about.AboutMovieFragment"
+        android:name="com.levandowski.imovieshare.ui.about.AboutMovieFragment"
         android:label="@string/about_movie_label"
         tools:layout="@layout/about_movie_fragment">
         <argument
