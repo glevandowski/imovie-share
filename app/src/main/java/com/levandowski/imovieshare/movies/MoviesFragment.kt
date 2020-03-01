@@ -6,16 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.levandowski.imovieshare.model.Movie
 import com.levandowski.imovieshare.R
+import kotlinx.android.synthetic.main.movies_fragment.*
 
 class MoviesFragment : Fragment() {
 
     companion object {
-        const val NUMBER_COLUMNS = 2
+       private const val NUMBER_COLUMNS = 2
     }
 
     private lateinit var viewModel: MoviesViewModel
@@ -44,29 +46,68 @@ class MoviesFragment : Fragment() {
     }
 
     private fun getMockMovies() = listOf(
-        Movie(title = "tarantino"),
-        Movie(title = "Star wars"),
-        Movie(title = "tarantino"),
-        Movie(title = "Star wars"),
-        Movie(title = "tarantino"),
-        Movie(title = "Star wars"),
-        Movie(title = "tarantino"),
-        Movie(title = "Star wars"),
-        Movie(title = "tarantino"),
-        Movie(title = "Star wars")
+        Movie(
+            title = "Tarantino",
+            overview = "Is happy",
+            voteAverage = 1.0
+        ),
+        Movie(
+            title = "Star wars",
+            overview = "Is happy",
+            voteAverage = 6.0
+        ),
+        Movie(
+            title = "Tarantino",
+            overview = "Is happy",
+            voteAverage = 6.0
+        ),
+        Movie(
+            title = "Star wars",
+            overview = "Is happy",
+            voteAverage = 6.0
+        ),
+        Movie(
+            title = "Tarantino",
+            overview = "Is happy",
+            voteAverage = 6.0
+        ),
+        Movie(
+            title = "Star wars",
+            overview = "Is happy",
+            voteAverage = 6.0
+        ),
+        Movie(
+            title = "Tarantino",
+            overview = "Is happy",
+            voteAverage = 6.0
+        ),
+        Movie(
+            title = "Star wars",
+            overview = "Is happy"
+        ),
+        Movie(
+            title = "Tarantino",
+            overview = "Is happy",
+            voteAverage = 6.0
+        ),
+        Movie(
+            title = "Lord of the rings",
+            overview = "Is bad",
+            voteAverage = 6.0
+        )
     )
 
     private fun getAdapter() = MovieAdapter(getMockMovies()) { movie ->
         val action = MoviesFragmentDirections.actionMoviesFragmentToAboutMovieFragment()
-        movie.title?.let { action.setTitleMovie(it) }
-        view?.findNavController()?.navigate(action)
+        action.movie = Gson().toJson(movie).toString()
+        findNavController().navigate(action)
     }
 
     private fun setupToRecyclerView(
         adapter: RecyclerView.Adapter<*>,
         layoutManager: RecyclerView.LayoutManager
     ) {
-        view?.findViewById<RecyclerView>(R.id.recycler_view)?.run {
+        recycler_view.run {
             setLayoutManager(layoutManager)
             setAdapter(adapter)
         }
