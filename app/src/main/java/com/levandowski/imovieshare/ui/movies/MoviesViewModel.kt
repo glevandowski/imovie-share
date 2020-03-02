@@ -4,8 +4,8 @@ import androidx.paging.PagedList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.levandowski.imovieshare.data.remote.movie.MovieDataSource
 import com.levandowski.imovieshare.data.repository.MovieRepository
+import com.levandowski.imovieshare.data.remote.movie.MovieDataSource
 import com.levandowski.imovieshare.model.Movie
 import javax.inject.Inject
 
