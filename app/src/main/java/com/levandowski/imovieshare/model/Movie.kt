@@ -1,7 +1,9 @@
 package com.levandowski.imovieshare.model
 
 import androidx.recyclerview.widget.DiffUtil
+import com.google.gson.*
 import com.google.gson.annotations.SerializedName
+import com.levandowski.imovieshare.util.GsonConverter
 
 data class Movie(
     @SerializedName("popularity")
@@ -32,7 +34,26 @@ data class Movie(
     val overview: String? = null,
     @SerializedName("release_date")
     val releaseDate: String? = null
-) {
+): GsonConverter {
+
+    override fun unwrapElement(json: String): Movie? {
+        return Gson().fromJson(json, Movie::class.java)
+    }
+
+    override fun wrap(): String {
+        return Gson().toJson(this)
+    }
+
+    private fun getFilteredGenres(genres: List<Genre>) =
+        genres.filter { genre -> genreIds?.any { it == genre.id } ?: false }
+
+    fun getCategory(genres: List<Genre>): String {
+        var category = ""
+        getFilteredGenres(genres).forEach { genre ->
+            category += "${genre.name} \n"
+        }
+        return category
+    }
 
     companion object {
         val DIFF_CALLBACK: DiffUtil.ItemCallback<Movie> = object : DiffUtil.ItemCallback<Movie>() {

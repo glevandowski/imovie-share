@@ -1,4 +1,4 @@
-package com.levandowski.imovieshare.data.remote
+package com.levandowski.imovieshare.data.remote.movie
 
 import com.google.gson.annotations.SerializedName
 import com.levandowski.imovieshare.model.Movie

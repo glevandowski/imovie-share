@@ -7,6 +7,8 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.levandowski.imovieshare.R
 import com.levandowski.imovieshare.model.Movie
+import com.levandowski.imovieshare.util.Urls
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_card.view.*
 
 class MoviesAdapter(
@@ -21,10 +23,17 @@ class MoviesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.itemView.run {
             tv_title_movie_card.text = getItem(position)?.title ?: ""
+            Picasso.get()
+                .load(Urls.BASE_URL_IMAGE_SIZE_SMALL + getItem(position)?.posterPath)
+                .fit()
+                .centerCrop()
+                .into(iv_movie_card)
+
             setOnClickListener {
-               getItem(position)?.let { it1 -> onClickListener.invoke(it1) }
+                getItem(position)?.let { onClickListener.invoke(it) }
             }
         }
     }

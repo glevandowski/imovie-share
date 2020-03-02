@@ -1,17 +1,14 @@
-package com.levandowski.imovieshare.data
+package com.levandowski.imovieshare.data.remote.movie
 
 import androidx.paging.PageKeyedDataSource
 import com.levandowski.imovieshare.BuildConfig
 import com.levandowski.imovieshare.model.Movie
-import io.reactivex.disposables.CompositeDisposable
 import com.levandowski.imovieshare.data.remote.NetworkState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.levandowski.imovieshare.data.remote.MovieResponse
 
 class MovieDataSource(
-    private val movieRepository: MovieRepository,
-    private val compositeDisposable: CompositeDisposable
+    private val movieDataInterface: MovieDataInterface
 ) : PageKeyedDataSource<Long, Movie>() {
 
     private val paginatedNetworkStateLiveData by lazy {
@@ -40,10 +37,10 @@ class MovieDataSource(
         responseMethod: (MovieResponse) -> Unit
     ) {
         paginatedNetworkStateLiveData.postValue(NetworkState.LOADING)
-        val request = movieRepository.getUpcomingMoviesAsync(
+        val request = movieDataInterface.getUpcomingMoviesAsync(
             BuildConfig.API_KEY,
             initialPosition
-        )?.subscribe({ response ->
+        ).subscribe({ response ->
             paginatedNetworkStateLiveData.postValue(NetworkState.LOADED)
             responseMethod.invoke(response)
         }, { throwable ->
@@ -52,7 +49,6 @@ class MovieDataSource(
 
         when (request) {
             null -> paginatedNetworkStateLiveData.postValue(NetworkState.error(""))
-            else -> compositeDisposable.add(request)
         }
     }
 

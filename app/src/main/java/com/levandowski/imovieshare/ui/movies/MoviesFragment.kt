@@ -2,24 +2,24 @@ package com.levandowski.imovieshare.ui.movies
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.levandowski.imovieshare.model.Movie
 import com.levandowski.imovieshare.R
 import kotlinx.android.synthetic.main.movies_fragment.*
 import androidx.paging.PagedList
 import androidx.lifecycle.Observer
-import com.levandowski.imovieshare.data.MovieDataSource
+import com.levandowski.imovieshare.data.remote.movie.MovieDataSource
 import com.levandowski.imovieshare.data.remote.NetworkState
 import com.levandowski.imovieshare.di.DaggerApplicationComponent
 import com.levandowski.imovieshare.di.ViewModelFactory
+import com.levandowski.imovieshare.ui.MainActivity
 import javax.inject.Inject
 
 class MoviesFragment : Fragment() {
@@ -34,33 +34,37 @@ class MoviesFragment : Fragment() {
         DaggerApplicationComponent.builder().build().inject(this)
     }
 
-    private val adapter = MoviesAdapter { item ->
-        MoviesFragmentDirections.actionMoviesFragmentToAboutMovieFragment().apply {
-            movie = Gson().toJson(item).toString()
-        }.also { action ->
-            findNavController().navigate(action)
-        }
-    }
+    private val adapter = MoviesAdapter { item -> navigateToMovieInformation(item) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        when (activity) {
+            is MainActivity -> {
+                (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
+            }
+        }
         return inflater.inflate(R.layout.movies_fragment, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupToRecyclerView(
-            adapter = adapter,
-            layoutManager = getLayoutManager()
-        )
     }
 
     override fun onResume() {
         super.onResume()
+        setupToRecyclerView(
+            adapter = adapter,
+            layoutManager = getLayoutManager()
+        )
         viewModel.moviesPagedList.observe(this, pagedListObserver)
-        viewModel.sourceLiveData.observe(this, dataSourceObserver)
+        viewModel.sourceLiveData.observe(this, movieDataSourceObserver)
+    }
+
+    private fun navigateToMovieInformation(itemMovie: Movie) {
+        MoviesFragmentDirections.actionMoviesFragmentToAboutMovieFragment().apply {
+            movie = itemMovie.wrap()
+        }.also { action ->
+            findNavController().navigate(action)
+        }
     }
 
     private val pagedListObserver = Observer<PagedList<Movie>> { moviesFromLiveData ->
@@ -70,7 +74,7 @@ class MoviesFragment : Fragment() {
         }
     }
 
-    private val dataSourceObserver = Observer<MovieDataSource> {
+    private val movieDataSourceObserver = Observer<MovieDataSource> {
         sr_movies.setOnRefreshListener {
             it.invalidate()
         }
@@ -83,16 +87,11 @@ class MoviesFragment : Fragment() {
             NetworkState.LOADED.status -> {
                 sr_movies.isRefreshing = false
             }
-            NetworkState.LOADING.status -> {
-
-            }
             NetworkState.Status.FAILED -> {
                 sr_movies.isRefreshing = false
-                Toast.makeText(
-                    activity?.applicationContext,
-                    networkState.msg,
-                    Toast.LENGTH_LONG
-                ).show()
+                networkState.msg?.showAlert()
+            }
+            else -> {
             }
         }
     }
@@ -111,6 +110,9 @@ class MoviesFragment : Fragment() {
             setAdapter(adapter)
         }
     }
+
+    private fun String.showAlert() =
+        Toast.makeText(requireContext(), this, Toast.LENGTH_LONG).show()
 
     companion object {
         private const val NUMBER_COLUMNS = 2

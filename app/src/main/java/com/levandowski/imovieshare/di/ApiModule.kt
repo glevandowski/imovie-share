@@ -2,7 +2,8 @@ package com.levandowski.imovieshare.di
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.levandowski.imovieshare.BuildConfig
-import com.levandowski.imovieshare.data.remote.MovieDataInterface
+import com.levandowski.imovieshare.data.remote.genre.GenreDataInterface
+import com.levandowski.imovieshare.data.remote.movie.MovieDataInterface
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -26,5 +27,11 @@ class ApiModule {
     @Singleton
     fun provideMovieDataInterface(): MovieDataInterface {
         return provideRetrofit().create(MovieDataInterface::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGenreDataInterface(): GenreDataInterface {
+        return provideRetrofit().create(GenreDataInterface::class.java)
     }
 }

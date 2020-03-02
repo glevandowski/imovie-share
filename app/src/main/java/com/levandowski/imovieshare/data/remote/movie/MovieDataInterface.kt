@@ -1,4 +1,4 @@
-package com.levandowski.imovieshare.data.remote
+package com.levandowski.imovieshare.data.remote.movie
 
 import io.reactivex.Single
 import retrofit2.http.GET
