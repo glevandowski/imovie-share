@@ -4,10 +4,8 @@ import android.os.Bundle
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.gson.Gson
 import com.levandowski.imovieshare.ui.about.AboutMovieFragment
 import com.levandowski.imovieshare.model.Movie
 import org.junit.Before
@@ -27,27 +25,43 @@ class AboutMoviesFragmentTest {
                 "for the completion of this journey, he can gradually count on other hobbits, an elf, " +
                 "a dwarf, two humans and a magician, totaling nine people who form the Society of the Ring"
         private const val MOVIE_VOTE_AVERAGE = 4.0
+        private const val MOVIE_RELEASE_DATE = "2039-02-01"
     }
 
     @Before
     fun setup() {
+        val movie = Movie(
+            title = TITLE_MOVIE,
+            overview = OVERVIEW_MOVIE,
+            voteAverage = MOVIE_VOTE_AVERAGE,
+            releaseDate = MOVIE_RELEASE_DATE
+        )
         val fragmentArgs = Bundle().apply {
             putString(
-                MOVIE_BUNDLE_REF, Gson().toJson(
-                    Movie(
-                        title = TITLE_MOVIE,
-                        overview = OVERVIEW_MOVIE,
-                        voteAverage = MOVIE_VOTE_AVERAGE
-                    )
-                )
+                MOVIE_BUNDLE_REF, movie.wrap()
             )
         }
-        FragmentScenario.launchInContainer(AboutMovieFragment::class.java, fragmentArgs)
+        FragmentScenario.launchInContainer(
+            AboutMovieFragment::class.java,
+            fragmentArgs,
+            R.style.Theme_AppCompat,
+            null
+        )
     }
 
     @Test
     fun viewsAreOnScreen() {
+        onView(withId(R.id.tv_about_movie_title)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_release_date_about_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_overview_about_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_vote_average)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun checkDataOnScreen() {
         onView(withText(TITLE_MOVIE)).check(matches(isDisplayed()))
         onView(withText(OVERVIEW_MOVIE)).check(matches(isDisplayed()))
+        onView(withText(MOVIE_VOTE_AVERAGE.toString())).check(matches(isDisplayed()))
+        onView(withText(MOVIE_RELEASE_DATE)).check(matches(isDisplayed()))
     }
 }
